@@ -40,6 +40,7 @@
 #include <libgen.h>
 #include "mtdutils/mtdutils.h"
 #include "bmlutils/bmlutils.h"
+#include "ubitools/ubi_tools.h"
 #include "cutils/android_reboot.h"
 #include "mmcutils/mmcutils.h"
 #include "voldclient/voldclient.h"
@@ -710,6 +711,16 @@ int format_unknown_device(const char *device, const char* path, const char *fs_t
             }
             return format_ext2_device(device);
         }
+
+        if (strcmp("ubifs", fs_type) == 0) {
+            LOGI("Formatting ubifs device.\n");
+            if (0 != ensure_path_unmounted(path)) {
+                LOGE("Error while unmounting %s.\n", path);
+                return -12;
+            }
+            return ubi_updatevol(device, NULL);
+        }
+
     }
 
     if (0 != ensure_path_mounted(path)) {

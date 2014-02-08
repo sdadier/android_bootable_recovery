@@ -114,7 +114,7 @@ LOCAL_STATIC_LIBRARIES += libminzip libunz libmincrypt
 LOCAL_STATIC_LIBRARIES += libminizip libminadbd libedify libbusybox libmkyaffs2image libunyaffs liberase_image libdump_image libflash_image
 LOCAL_LDFLAGS += -Wl,--no-fatal-warnings
 
-LOCAL_STATIC_LIBRARIES += libfs_mgr libdedupe libcrypto_static libcrecovery libflashutils libmtdutils libmmcutils libbmlutils
+LOCAL_STATIC_LIBRARIES += libfs_mgr libdedupe libcrypto_static libcrecovery libflashutils libmtdutils libmmcutils libbmlutils libubitools
 
 ifeq ($(BOARD_USES_BML_OVER_MTD),true)
 LOCAL_STATIC_LIBRARIES += libbml_over_mtd
@@ -207,6 +207,7 @@ include $(commands_recovery_local_path)/utilities/Android.mk
 include $(commands_recovery_local_path)/su/Android.mk
 include $(commands_recovery_local_path)/voldclient/Android.mk
 include $(commands_recovery_local_path)/loki/Android.mk
+include $(commands_recovery_local_path)/ubitools/Android.mk
 commands_recovery_local_path :=
 
 endif

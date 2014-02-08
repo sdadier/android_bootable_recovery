@@ -271,7 +271,8 @@ int ensure_path_mounted_at_mount_point(const char* path, const char* mount_point
             return -1;
         }
         return mtd_mount_partition(partition, mount_point, v->fs_type, 0);
-    } else if (strcmp(v->fs_type, "ext4") == 0 ||
+    } else if (strcmp(v->fs_type, "ubifs") == 0 ||
+               strcmp(v->fs_type, "ext4") == 0 ||
                strcmp(v->fs_type, "ext3") == 0 ||
                strcmp(v->fs_type, "rfs") == 0 ||
                strcmp(v->fs_type, "vfat") == 0) {

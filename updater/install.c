@@ -41,6 +41,7 @@
 #include "minzip/DirUtil.h"
 #include "mounts.h"
 #include "mtdutils/mtdutils.h"
+#include "ubitools/ubi_tools.h"
 #include "updater.h"
 #include "applypatch/applypatch.h"
 
@@ -273,6 +274,15 @@ Value* FormatFn(const char* name, State* state, int argc, Expr* argv[]) {
         }
         result = location;
 #endif
+    } else if (strcmp(fs_type, "ubifs") == 0) {
+        int status = ubi_updatevol(location, NULL);
+        if (status != 0) {
+            fprintf(stderr, "%s: ubi_updatevol failed (%d) on %s",
+                    name, status, location);
+            result = strdup("");
+            goto done;
+        }
+        result = location;
     } else {
         fprintf(stderr, "%s: unsupported fs_type \"%s\" partition_type \"%s\"",
                 name, fs_type, partition_type);
